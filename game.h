@@ -1,4 +1,4 @@
-
+// Importante antes de pushear devuelta -> arreglar formato headerfile
 
 typedef enum {
     SLOT_2 = 0, 
