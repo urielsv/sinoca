@@ -1,1 +1,3 @@
 # sinoca
+
+inicio de sinoca 😁
