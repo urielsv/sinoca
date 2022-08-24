@@ -32,11 +32,14 @@ int slot()
     raw();
     noecho();
 
+    mvprintw(30, 30, "SINOCA GAME");
     int isPlaying = 1;
     while((opt = getch()) == ' ' && isPlaying) {
-
-        sleep(0.3);
         
+        // Display function max_y max_x 
+        clear(); 
+        //getmaxyx(stdscr, 80, 80);
+        sleep(0.3);
         slotRand(line);
         
         refresh();
