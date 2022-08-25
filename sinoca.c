@@ -5,17 +5,17 @@
 
 #include "sinoca.h"
 
-static void slotRand(int arr[])
+void slotRand(deck line[])
 {
     /* Values between 0 y 4 pseudo-randomly */
     for (int i=0; i < LINE_SIZE; i++) {
-       arr[i] = (rand() % (MAX_VAL - MIN_VAL + 1));
+       line[i] = (rand() % (MAX_VAL - MIN_VAL + 1));
     }
 }
 
 int slot() 
 {
-    int line[3];
+    deck line[3];
     char opt;
 
     srand(time(NULL));
@@ -40,7 +40,8 @@ int slot()
     return 1;
 }
 
-int rewards(int line[], int * points)
+// Hacer un csv que lea con un strtok
+int rewards(deck line[], int * points)
 {
     if (line[0] == line[1] && line[0] == line[2]) {
             printw("Yay!\n");

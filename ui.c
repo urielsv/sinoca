@@ -7,15 +7,15 @@ int validScreen(int x, int y)
     if (x < TER_SIZE_X || y < TER_SIZE_Y) {
         endwin();
         fprintf(stderr, "Not a valid terminal size.");
-        return 0;
+        return false;
     }
-    return 1;
+    return true;
 }
 
 int initUI()
 {
-    if (!validScreen)
-        return 0;
+    //if (!validScreen(x, y))
+    //    return 0;
     
     int max_row, max_col;
     
@@ -27,7 +27,7 @@ int initUI()
     return 1;
 }
 
-void board(int line[])
+void board(deck line[])
 {
     clear();
     
@@ -40,7 +40,7 @@ void board(int line[])
     refresh();
 }
 
-static void rowBoard(void)
+void rowBoard()
 {
     addstr("#############################################\n"
            "#############################################\n");
@@ -104,7 +104,7 @@ const char card[CARDS][CARD_ROWS][CARD_COLS] =
         }
 };
 
-static void slotToBoard(int line[]) // slotToBoard(line, 3)
+void slotToBoard(deck line[]) // slotToBoard(line, 3)
 {
     int lineVal;
     for (int j = 0; j < CARD_ROWS; j++) { 

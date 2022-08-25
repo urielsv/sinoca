@@ -1,13 +1,14 @@
+EXEC = sinoca
 CFLAGS = -Wall -lncurses
-C_FILES = game.c main.c ui.c
+C_FILES = sinoca.c main.c ui.c
 
 .PHONY: all clean
 .DEFAULT: all
 
 all: sinoca
 
-sinoca: $(SRCS)
-		gcc $(CFLAGS)
+sinoca: 
+		gcc $(C_FILES) $(CFLAGS) -o sinoca
 
 clean:
-		-rf -f sinoca
+		-rm -f sinoca

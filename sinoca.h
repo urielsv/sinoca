@@ -11,12 +11,12 @@
 #define TER_SIZE_X 64
 #define TER_SIZE_Y 32
 
-typedef enum {
-    SLOT_2 = 0, 
-    SLOT_K = 1,
-    SLOT_Q = 2,
-    SLOT_J = 3,
-    SLOT_A = 4,
+typedef enum deck {
+    SLOT_3 = 0, 
+    SLOT_K,
+    SLOT_Q,
+    SLOT_J,
+    SLOT_A,
 } deck;
 
 extern const char card[CARDS][CARD_ROWS][CARD_COLS];
@@ -28,22 +28,22 @@ extern const char card[CARDS][CARD_ROWS][CARD_COLS];
 int slot();
 
 /* Randomizes possible values */
-static void slotRand(int []);
+void slotRand(deck []);
 
 /* Points and rewards for the user */
-int rewards(int [], int *);
-static int validScreen(int, int);
+int rewards(deck [], int *);
+int validScreen(int, int);
 
 
 /* Front-end */
 
 int initUI();
 
-void board(int []);
-static void rowBoard(void);
+void board(deck []);
 
+void rowBoard();
 //funcion que lee el numero que sale e imprime lo que salio en grande
-static void slotToBoard(int []);
+void slotToBoard(deck []);
 
 // Funciones logicas:
 // 1. Funcion de random en rango [0-4] (las cartas)
