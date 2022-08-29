@@ -1,5 +1,5 @@
 #include <ncurses.h>
-
+#include <string.h>
 #include "sinoca.h"
 
 int validScreen(int x, int y) 
@@ -12,39 +12,61 @@ int validScreen(int x, int y)
     return true;
 }
 
+int max_row, max_col;
+
 int initUI()
 {
     //if (!validScreen(x, y))
     //    return 0;
     
-    int max_row, max_col;
     
     initscr();
     getmaxyx(stdscr, max_row, max_col);
     raw();
-    noecho();
 
+    menu();
     return 1;
 }
 
 void board(deck line[])
 {
     clear();
-    
+    noecho(); 
     /* Block of slot */
-    rowBoard();
+    addstr(rowBoard);
     slotToBoard(line);
-    rowBoard();
+    addstr(rowBoard);
          
     printw("Debug values: %d, %d, %d\n", line[0], line[1], line[2]);
     refresh();
 }
 
-void rowBoard()
+void menu()
 {
-    addstr("#############################################\n"
-           "#############################################\n");
+    mvaddstr(4, (max_col/2)-11, "Welcome to THE SINOCA\n");
+    mvaddstr(5, (max_col/2)-11, "To start, press ENTER\n");
+    refresh();
 }
+
+int loginCreds(char username[], int * points) 
+{
+    if (getch() == '\n') {
+        clear();
+
+        mvaddstr(6, (max_col/2)-12, "THE SINOCA GAME");
+        echo();
+        mvaddstr(8, (max_col/2)-12, "Username: ");
+        mvscanw(8, (max_col/2)-2, "%s", username); // Arreglar esto.
+        mvaddstr(9, (max_col/2)-12, "Points to play: ");
+        mvscanw(9, (max_col/2)+4, "%d", points); 
+    }
+    return *points;
+}
+
+const char * rowBoard = 
+            "#############################################\n"
+            "#############################################\n";
+
 
 const char card[CARDS][CARD_ROWS][CARD_COLS] =
 {       {

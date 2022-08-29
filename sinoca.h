@@ -20,7 +20,7 @@ typedef enum deck {
 } deck;
 
 extern const char card[CARDS][CARD_ROWS][CARD_COLS];
-
+extern const char * rowBoard;
 
 /* Back-end */
 
@@ -39,9 +39,13 @@ int validScreen(int, int);
 
 int initUI();
 
+void menu();
+
+int loginCreds(char [], int *);
+
 void board(deck []);
 
-void rowBoard();
+
 //funcion que lee el numero que sale e imprime lo que salio en grande
 void slotToBoard(deck []);
 
