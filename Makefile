@@ -10,5 +10,6 @@ all: sinoca
 sinoca: 
 		gcc $(C_FILES) $(CFLAGS) -o sinoca
 
-clean:
+clean:	
 		-rm -f sinoca
+		gcc $(C_FILES) $(CFLAGS) -o sinoca

@@ -5,49 +5,57 @@
 
 #include "sinoca.h"
 
-void slotRand(deck line[])
+void slotRand(deck line[LINE_SIZE][COL_SIZE])
 {
     /* Values between 0 y 4 pseudo-randomly */
     for (int i=0; i < LINE_SIZE; i++) {
-       line[i] = (rand() % (MAX_VAL - MIN_VAL + 1));
+        for (int j=0; j < COL_SIZE; j++) {
+            line[i][j] = (rand() % (MAX_VAL - MIN_VAL + 1));
+        }
     }
 }
 
 int slot() 
 {
-    deck line[3];
+    deck line[LINE_SIZE][COL_SIZE];
     char opt;
-    int MaxX, MaxY;
+    int points = 0;
+    int isPlaying = 1;
+    char username[MAX_USERNAME_SIZE]; 
+    
     srand(time(NULL));
     initUI();
-    getmaxyx( stdscr, MaxY, MaxX );
-    int isPlaying = 1;
-    int points = 0;
-    char username[30]; 
-    menu();
     loginCreds(username, &points);
     do {  
         slotRand(line);
         board(line);
+        
+        rewards(line, &points);
+        printw("asd %d\n", points); // POR QUE NO PRINTEA?!?!?
 
         /* Give user points if made a line. */ 
-        printw("%d\n", rewards(line, &points));
         
         // Agregar opciones para menu. 
     } while ((opt = getchar()) == ' ');
 
     endwin();
+
     printf("Gracias por jugar al sinoca.\n");
-    printf("%d, %d", MaxY, MaxX);
+    printf("%d, %d", max_row, max_col);
     return 1;
 }
 
 // Hacer un csv que lea con un strtok 
-int rewards(deck line[], int * points)
+
+
+// Modularizar esta macro. Esta horrible pero era para testear.
+#define IS_LINE     (line[0][0] == line[1][0] && line[0][0] == line[2][0] && line[0][0] == line[3][0] \
+                              && line[0][0] == line[4][0])
+int rewards(deck line[LINE_SIZE][COL_SIZE], int * points)
 {
-    if (line[0] == line[1] && line[0] == line[2]) {
-            printw("Yay!\n");
-            *points += 50; 
+    if (IS_LINE) {
+        *points += 50; 
     }
     return *points;
 }
+#undef IS_LINE
